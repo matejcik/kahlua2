@@ -264,7 +264,7 @@ public final class TableLib implements JavaFunction {
 		KahluaTableIterator it = table.iterator();
 		while (it.advance()) {
 			Object key = it.getKey();
-			if (item.equals(key)) {
+			if (item.equals(it.getValue())) {
 				if (key instanceof Double) {
 					double k = ((Double)key).doubleValue();
 					int i = (int)k;

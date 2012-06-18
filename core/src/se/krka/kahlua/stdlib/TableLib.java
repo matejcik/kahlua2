@@ -243,11 +243,53 @@ public final class TableLib implements JavaFunction {
 		callFrame.push(remove(callFrame.getThread(), t, pos));
 		return 1;
 	}
+	
+	public static Object rawremove (KahluaTable table, int position) {
+		Object ret = table.rawget(KahluaUtil.toDouble(position));
+		int len = table.len();
+		for (int i = position; i <= len; i++) {
+			table.rawset(KahluaUtil.toDouble(i), table.rawget(KahluaUtil.toDouble(i+1)));
+		}
+		return ret;
+	}
 
 	private static KahluaTable getTable(LuaCallFrame callFrame, int nArguments) {
 		KahluaUtil.luaAssert(nArguments >= 1, "expected table, got no arguments");
 		KahluaTable t = (KahluaTable)callFrame.get(0);
 		return t;
+	}
+	
+	public static void removeItem (KahluaTable table, Object item) {
+		if (item == null) return;
+		KahluaTableIterator it = table.iterator();
+		while (it.advance()) {
+			Object key = it.getKey();
+			if (item.equals(key)) {
+				if (key instanceof Double) {
+					double k = ((Double)key).doubleValue();
+					int i = (int)k;
+					if (k == i) rawremove(table, i);
+				} else {
+					table.rawset(key, null);
+				}
+				return;
+			}
+		}
+	}
+	
+	public static Object find (KahluaTable table, Object item) {
+		if (item == null) return null;
+		KahluaTableIterator i = table.iterator();
+		while (i.advance()) {
+			if (item.equals(i.getValue())) {
+				return i.getKey();
+			}
+		}
+		return null;
+	}
+	
+	public static boolean contains (KahluaTable table, Object item) {
+		return find(table, item) != null;
 	}
 
 }

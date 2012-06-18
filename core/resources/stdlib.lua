@@ -150,3 +150,19 @@ do
 	end
 end
 
+
+-- *************
+-- COMPATIBILITY
+-- *************
+
+function table.getn (tbl)
+	return #tbl
+end
+
+string.gfind = string.gmatch
+
+function math.mod (a, b)
+	return a % b
+end
+
+function require (modname) end

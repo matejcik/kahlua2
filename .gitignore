@@ -3,6 +3,7 @@ out
 .idea/uiDesigner.xml
 bin
 testsuite/testreport.html
+core/nbproject/private
 
 local.properties
 contrib/midlet/build

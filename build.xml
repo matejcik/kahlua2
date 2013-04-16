@@ -180,16 +180,16 @@
 	</target>
 
     <target name="package" depends="setup, build" description="Package the final kahlua jar">
-    	<jar jarfile="${build.dir}/kahlua-${version}-core.jar">
+    	<jar jarfile="${build.dir}/kahlua-core.jar">
     		<fileset dir="${classes.dir}/core" />
     	</jar>
-    	<jar jarfile="${build.dir}/kahlua-${version}-cldc11.jar">
+    	<jar jarfile="${build.dir}/kahlua-cldc11.jar">
     		<fileset dir="${classes.dir}/cldc11" />
     	</jar>
-    	<jar jarfile="${build.dir}/kahlua-${version}-j2se.jar">
+    	<jar jarfile="${build.dir}/kahlua-j2se.jar">
     		<fileset dir="${classes.dir}/j2se" />
     	</jar>
-    	<jar jarfile="${build.dir}/kahlua-${version}-interpreter.jar">
+    	<jar jarfile="${build.dir}/kahlua-interpreter.jar">
     		<fileset dir="${classes.dir}/interpreter" />
     	</jar>
     </target>

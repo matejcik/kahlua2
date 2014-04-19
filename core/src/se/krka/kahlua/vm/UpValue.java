@@ -27,12 +27,12 @@ package se.krka.kahlua.vm;
  */
 public final class UpValue {
 	// For open upvalues
-	private Coroutine coroutine;
+	public Coroutine coroutine;
 
-    private final int index;
+    public final int index;
 
 	// For closed upvalues
-	private Object value;
+	public Object value;
 
     public UpValue(Coroutine coroutine, int index) {
         this.coroutine = coroutine;

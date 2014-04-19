@@ -14,7 +14,7 @@ public class RandomLib implements JavaFunction {
     private static final int NUM_FUNCTIONS = 3;
 
     private static final String[] names;
-    private static final RandomLib[] functions;
+    public static final RandomLib[] functions;
     static {
         names = new String[NUM_FUNCTIONS];
         names[RANDOM] = "random";

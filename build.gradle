@@ -1,0 +1,57 @@
+allprojects {
+	version = "2.0"
+}
+
+apply plugin: "java"
+apply plugin: "maven"
+
+group = "com.github.matejcik"
+
+subprojects {
+	apply plugin: "java"
+
+	sourceCompatibility = 1.6
+	targetCompatibility = 1.6
+
+	sourceSets {
+		main {
+			java {
+				srcDirs = ["src"]
+			}
+			resources {
+				srcDirs = ["resources"]
+			}
+		}
+	}
+}
+
+project(":j2se").dependencies {
+	compile project(":core")
+}
+
+project(":cldc11").dependencies {
+	compile project(":core")
+}
+
+project(":testsuite").dependencies {
+	compile project(":core"), project(":j2se")
+}
+
+task buildStdlib (type: JavaExec, dependsOn: subprojects.classes) {
+	classpath subprojects.sourceSets.main.runtimeClasspath
+	main = "LuaC"
+	args "core/resources/stdlib.lua", "stdlib.lbc"
+}
+
+task oneJar (type: Jar, dependsOn: [subprojects.assemble, buildStdlib]) {
+	from files(project(":core").sourceSets.main.output)
+	from files(project(":cldc11").sourceSets.main.output)
+	from "stdlib.lbc"
+	exclude "*.lua"
+	exclude "org"
+	exclude "se/krka/kahlua/luaj"
+}
+
+artifacts {
+	archives oneJar
+}
